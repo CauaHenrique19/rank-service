@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { Rank } from '@rank-service/infra/orm/entities';
+import { Action, Rank } from '@rank-service/infra/orm/entities';
 import { CONFIG } from 'src/config';
 
 export const AppDataSource = new DataSource({
@@ -11,7 +11,7 @@ export const AppDataSource = new DataSource({
   database: CONFIG.DATABASE_NAME,
   synchronize: true,
   logging: false,
-  entities: [Rank],
+  entities: [Rank, Action],
   subscribers: [],
   migrations: [],
   ssl: CONFIG.NODE_ENV === 'development' ? false : true,

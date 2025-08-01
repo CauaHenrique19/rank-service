@@ -1,9 +1,17 @@
 import { Module } from '@nestjs/common';
 
-import { RankRepository } from '@rank-service/infra/orm/repositories';
-import { rankProvider } from '@rank-service/infra/orm/providers';
 import {
+  ActionRepository,
+  RankRepository,
+} from '@rank-service/infra/orm/repositories';
+import {
+  actionProvider,
+  rankProvider,
+} from '@rank-service/infra/orm/providers';
+import {
+  createActionFactory,
   createRankFactory,
+  findActionsFactory,
   findRanksFactory,
 } from '@rank-service/main/factories/usecases';
 
@@ -11,14 +19,23 @@ import {
   providers: [
     //repositories
     RankRepository,
+    ActionRepository,
 
     //providers
     rankProvider,
+    actionProvider,
 
     //usecases
     createRankFactory,
     findRanksFactory,
+    createActionFactory,
+    findActionsFactory,
   ],
-  exports: [createRankFactory, findRanksFactory],
+  exports: [
+    createRankFactory,
+    findRanksFactory,
+    createActionFactory,
+    findActionsFactory,
+  ],
 })
 export class FactoryModule {}
