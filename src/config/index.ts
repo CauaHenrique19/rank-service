@@ -12,6 +12,6 @@ export const CONFIG = {
   DATABASE_NAME: process.env.DATABASE_NAME,
   PORT: process.env.PORT ? parseInt(process.env.PORT) : 3003,
   NODE_ENV: process.env.NODE_ENV?.trim(),
-  SERVICE_NAME: process.env.SERVICE_NAME,
-  KAFKA_BROKER_HOST: process.env.KAFKA_BROKER_HOST || 'localhost:9092',
+  SERVICE_NAME: process.env.SERVICE_NAME || 'rank-service',
+  KAFKA_BROKER_HOST: process.env.KAFKA_BROKER_HOST || 'localhost:9094',
 };

@@ -4,13 +4,14 @@ import { EntityTarget, FindOptionsWhere, Repository } from 'typeorm';
 import {
   CreateActionRepository,
   FindActionsRepository,
+  FindActionRepository,
 } from '@rank-service/data/protocols/db';
 import { Action } from '@rank-service/infra/orm/entities';
 import { ACTION_REPOSITORY } from '@rank-service/infra/orm/typeorm/typeorm.repositories';
 import { AppDataSource } from '@rank-service/infra/orm/typeorm/data-source';
 
 export class ActionRepository
-  implements CreateActionRepository, FindActionsRepository
+  implements CreateActionRepository, FindActionsRepository, FindActionRepository
 {
   private readonly actionRepository: Repository<Action>;
 
@@ -31,6 +32,20 @@ export class ActionRepository
     }
 
     return this.actionRepository.find({
+      where,
+    });
+  }
+
+  findOne(
+    parameters?: FindActionRepository.Parameters,
+  ): Promise<FindActionRepository.Result> {
+    const where: FindOptionsWhere<Action> = {};
+
+    if (parameters?.kind) {
+      where.kind = parameters.kind;
+    }
+
+    return this.actionRepository.findOne({
       where,
     });
   }

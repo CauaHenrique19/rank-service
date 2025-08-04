@@ -1,4 +1,5 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { ActionKind } from '@rank-service/domain/enums';
 
 export class CreateActionDTO {
   @IsString()
@@ -6,4 +7,8 @@ export class CreateActionDTO {
 
   @IsNumber()
   pontuation: number;
+
+  @IsString()
+  @IsEnum(ActionKind)
+  kind: ActionKind;
 }

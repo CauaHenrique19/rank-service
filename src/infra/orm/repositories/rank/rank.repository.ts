@@ -3,6 +3,7 @@ import { EntityTarget, FindOptionsWhere, Repository } from 'typeorm';
 
 import {
   CreateRankRepository,
+  FindRankByPontuationRepository,
   FindRanksRepository,
 } from '@rank-service/data/protocols/db';
 import { Rank } from '@rank-service/infra/orm/entities';
@@ -10,7 +11,10 @@ import { RANK_REPOSITORY } from '@rank-service/infra/orm/typeorm/typeorm.reposit
 import { AppDataSource } from '@rank-service/infra/orm/typeorm/data-source';
 
 export class RankRepository
-  implements CreateRankRepository, FindRanksRepository
+  implements
+    CreateRankRepository,
+    FindRanksRepository,
+    FindRankByPontuationRepository
 {
   private readonly rankRepository: Repository<Rank>;
 
@@ -33,6 +37,18 @@ export class RankRepository
     return this.rankRepository.find({
       where,
     });
+  }
+
+  findByPontuation(
+    parameters: FindRankByPontuationRepository.Parameters,
+  ): Promise<FindRankByPontuationRepository.Result> {
+    return this.rankRepository
+      .createQueryBuilder('userRank')
+      .where(
+        ':pontuation BETWEEN userRank.initialPontuation AND userRank.finalPontuation',
+        { pontuation: parameters.pontuation },
+      )
+      .getOne();
   }
 
   async create(
