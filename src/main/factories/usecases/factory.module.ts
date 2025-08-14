@@ -18,6 +18,7 @@ import {
   findActionsFactory,
   findRanksFactory,
   processUserActionFactory,
+  processUserRankFactory,
 } from '@rank-service/main/factories/usecases';
 import { KafkaMessageBrokerAdapter } from '@rank-service/infra/kafka/adapter';
 
@@ -43,6 +44,7 @@ import { KafkaMessageBrokerAdapter } from '@rank-service/infra/kafka/adapter';
     createActionFactory,
     findActionsFactory,
     processUserActionFactory,
+    processUserRankFactory,
   ],
   exports: [
     KafkaMessageBrokerAdapter,
@@ -52,6 +54,7 @@ import { KafkaMessageBrokerAdapter } from '@rank-service/infra/kafka/adapter';
     createActionFactory,
     findActionsFactory,
     processUserActionFactory,
+    processUserRankFactory,
   ],
 })
 export class FactoryModule {}
