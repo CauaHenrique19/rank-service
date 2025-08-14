@@ -59,6 +59,7 @@ export class ProcessUserAction implements ProcessUserActionUseCase {
     const messages = [
       {
         userId: parameters.userId,
+        pontuation: actionUser.pontuation,
       },
     ];
 
@@ -72,6 +73,7 @@ export class ProcessUserAction implements ProcessUserActionUseCase {
 
       messages.push({
         userId: parameters.review!.userId,
+        pontuation: actionOtherUser.pontuation,
       });
     }
 
@@ -80,38 +82,5 @@ export class ProcessUserAction implements ProcessUserActionUseCase {
       topicName: 'process_user_rank',
       message: messages,
     });
-
-    /*
-    const userRank = await this.findUserRankRepository.find({
-      userId: parameters.userId,
-    });
-
-    const newPontuation = userRank
-      ? (userRank.pontuation += action.pontuation)
-      : action.pontuation;
-
-    const rank = await this.findRankByPontuationRepository.findByPontuation({
-      pontuation: newPontuation,
-    });
-
-    if (!rank) {
-      throw new RankNotFoundError();
-    }
-
-    if (!userRank) {
-      await this.createUserRankRepository.create({
-        userId: parameters.userId,
-        pontuation: newPontuation,
-        rankId: rank.id,
-        createdAt: now,
-      });
-    } else {
-      await this.updateUserRankRepository.update({
-        id: userRank.id,
-        pontuation: newPontuation,
-        rankId: rank.id,
-      });
-    }
-      */
   }
 }
