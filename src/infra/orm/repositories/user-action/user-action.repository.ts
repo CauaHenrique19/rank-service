@@ -19,10 +19,24 @@ export class UserActionRepository implements CreateUserActionRepository {
   async create(
     parameters: CreateUserActionRepository.Parameters,
   ): Promise<CreateUserActionRepository.Result> {
-    const userAction = new UserAction();
-    Object.assign(userAction, parameters);
+    const userActions: UserAction[] = [];
 
-    await this.userActionRepository.save(userAction);
-    return userAction;
+    if (Array.isArray(parameters)) {
+      const entities = parameters.map((param) => {
+        const userAction = new UserAction();
+        Object.assign(userAction, param);
+
+        return userAction;
+      });
+
+      userActions.push(...entities);
+    } else {
+      const userAction = new UserAction();
+      Object.assign(userAction, parameters);
+
+      userActions.push(userAction);
+    }
+
+    await this.userActionRepository.insert(userActions);
   }
 }

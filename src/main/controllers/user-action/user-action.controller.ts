@@ -84,6 +84,7 @@ export class UserActionController {
       {
         userId: like.userId,
         actionCreatedAt: like.createdAt,
+        review: like.review,
         kind: ActionKind.CREATED_LIKE,
       },
     );
@@ -105,6 +106,7 @@ export class UserActionController {
       {
         userId: like.userId,
         actionCreatedAt: like.createdAt,
+        review: like.review,
         kind: ActionKind.DELETED_LIKE,
       },
     );
@@ -126,6 +128,7 @@ export class UserActionController {
       {
         userId: comment.userId,
         actionCreatedAt: comment.createdAt,
+        review: comment.review,
         kind: ActionKind.CREATED_COMMENT,
       },
     );
@@ -147,6 +150,7 @@ export class UserActionController {
       {
         userId: comment.userId,
         actionCreatedAt: comment.createdAt,
+        review: comment.review,
         kind: ActionKind.DELETED_COMMENT,
       },
     );

@@ -7,6 +7,8 @@ export interface CreateUserActionRepository {
 }
 
 export namespace CreateUserActionRepository {
-  export type Parameters = Omit<UserActionModel, 'id'>;
-  export type Result = UserActionModel;
+  export type Parameters =
+    | Omit<UserActionModel, 'id'>
+    | Omit<UserActionModel, 'id'>[];
+  export type Result = void;
 }

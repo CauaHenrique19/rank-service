@@ -1,5 +1,5 @@
 import { Inject } from '@nestjs/common';
-import { EntityTarget, FindOptionsWhere, Repository } from 'typeorm';
+import { EntityTarget, FindOptionsWhere, In, Repository } from 'typeorm';
 
 import {
   CreateActionRepository,
@@ -29,6 +29,10 @@ export class ActionRepository
 
     if (parameters?.name) {
       where.name = parameters.name;
+    }
+
+    if (parameters?.kinds?.length) {
+      where.kind = In(parameters.kinds);
     }
 
     return this.actionRepository.find({

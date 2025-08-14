@@ -11,6 +11,11 @@ export namespace ProcessUserActionUseCase {
   export type Parameters = Omit<
     UserActionModel,
     'id' | 'actionId' | 'createdAt'
-  > & { kind: ActionKind };
+  > & {
+    kind: ActionKind;
+    review?: {
+      userId: string;
+    };
+  };
   export type Result = void;
 }
