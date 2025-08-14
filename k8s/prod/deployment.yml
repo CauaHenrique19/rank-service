@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rank-service
+  labels:
+    app: rank-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rank-service
+  template:
+    metadata:
+      labels:
+        app: rank-service
+    spec:
+      containers:
+        - name: rank-service
+          image: cauahrq/rank-service:v3
+          ports:
+            - containerPort: 3001
+          resources:
+            requests:
+              memory: '64Mi'
+              cpu: '100m'
+            limits:
+              memory: '128Mi'
+              cpu: '250m'
+          env:
+            - name: PORT
+              value: '3001'
+            - name: DATABASE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: rank-service-external-secret
+                  key: DATABASE_HOST
+            - name: DATABASE_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: rank-service-external-secret
+                  key: DATABASE_PORT
+            - name: DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: rank-service-external-secret
+                  key: DATABASE_USERNAME
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rank-service-external-secret
+                  key: DATABASE_PASSWORD
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: rank-service-external-secret
+                  key: DATABASE_NAME
+      restartPolicy: Always
