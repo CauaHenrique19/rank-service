@@ -7,6 +7,6 @@ spec:
     app: rank-service
   ports:
     - protocol: TCP
-      port: 3000
-      targetPort: 3001
+      port: 3003
+      targetPort: 3003
   type: LoadBalancer

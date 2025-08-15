@@ -16,9 +16,9 @@ spec:
     spec:
       containers:
         - name: rank-service
-          image: cauahrq/rank-service:v3
+          image: cauahrq/rank-service:v1
           ports:
-            - containerPort: 3001
+            - containerPort: 3003
           resources:
             requests:
               memory: '64Mi'
@@ -28,9 +28,9 @@ spec:
               cpu: '250m'
           env:
             - name: PORT
-              value: '3002'
+              value: '3003'
             - name: DATABASE_HOST
-              value: 'localhost'
+              value: 'host.docker.internal'
             - name: DATABASE_PORT
               value: '5432'
             - name: DATABASE_USERNAME
@@ -42,7 +42,7 @@ spec:
             - name: SERVICE_NAME
               value: 'rank-service'
             - name: KAFKA_BROKER_HOST
-              value: 'localhost:9094'
+              value: 'host.docker.internal:9094'
             - name: NODE_ENV
               value: 'development'
       restartPolicy: Always

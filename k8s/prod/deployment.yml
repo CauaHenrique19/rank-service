@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: rank-service
-          image: cauahrq/rank-service:v3
+          image: RANK_IMAGE
           ports:
             - containerPort: 3001
           resources:
